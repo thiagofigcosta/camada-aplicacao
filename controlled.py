@@ -3,6 +3,7 @@
 
 import pyautogui
 import time
+import os
 import io
 import base64
 
@@ -10,22 +11,37 @@ FRAMESPERSECOND=30
 
 
 while True:
-	screenx,screeny= pyautogui.size()
-	mousex,mousey= pyautogui.position()
 	img=pyautogui.screenshot()
 
 	with io.BytesIO() as output:
 		img.save(output, format="PNG")
 		img_str = base64.b64encode(output.getvalue())
-	data=str(screenx)+chr(30)+str(screeny)+chr(30)+str(mousex)+chr(30)+str(mousey)+chr(30)+img_str
-	file = open("packet.txt", "wb")
+	data=img_str
+
+	file = open("message_slave.txt", "wb")
 	file.write(data)
 	file.close()
 
+	while True:
+		try:
+			file = open("message_master.txt", "r")
+			data=file.read()
+			file.close()
+			break
+		except:
+			pass
+	try:
+		os.remove("message_master.txt")
+	except:
+		pass
 
-		# file.write(str.decode('base64')) //decode str
-		
+	masterx,mastery,mousex,mousey=data.split(chr(30))
+	screenx,screeny= pyautogui.size()
 
+	newmousex,newmousey=int(float(mousex)/float(masterx)*float(screenx)),int(float(mousey)/float(mastery)*float(screeny))
+
+	print("x:"+str(newmousex)+"  y:"+str(newmousey))
+	pyautogui.moveTo(newmousex, newmousey)
 
 	time.sleep(1/FRAMESPERSECOND)
 

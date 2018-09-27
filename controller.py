@@ -6,6 +6,8 @@ import time
 import io
 import base64
 import sys
+import os
+import signal
 if sys.version_info[0] == 2:  # the tkinter library changed it's name from Python 2 to 3.
 	import Tkinter
 	tkinter = Tkinter #I decided to use a library reference to avoid potential naming conflicts with people's programs.
@@ -16,10 +18,13 @@ from PIL import Image, ImageTk
 
 FRAMESPERSECOND=30
 
+def getScreenSize(screenx,screeny):
+	return screenx*0.9, screeny*0.9
+
 def showPIL(pilImage):
 	root = tkinter.Tk()
 	screenx, screeny = root.winfo_screenwidth(), root.winfo_screenheight()
-	sizex, sizey = screenx*0.9, screeny*0.9
+	sizex, sizey = getScreenSize(screenx, screeny)
 	posx, posy = ((screenx-sizex)/2), ((screeny-sizey)/2)
 
 	root.overrideredirect(1)
@@ -39,20 +44,39 @@ def showPIL(pilImage):
 	imagesprite = canvas.create_image(screenx/2,screeny/2,image=image)
 	root.mainloop()
 
+def shutdown(signal,frame):
+	print("\nbye\n")
+	exit()
 
+
+signal.signal(signal.SIGINT, shutdown)
 
 while True:
+	screenx,screeny= pyautogui.size()
+	sizex, sizey = getScreenSize(screenx, screeny)
+	mousex,mousey= pyautogui.position()
+	data=str(sizex)+chr(30)+str(sizey)+chr(30)+str(mousex)+chr(30)+str(mousey)
 
-	file = open("packet.txt", "r")
-	data=file.read()
-	screenx,screeny,mousex,mousey,img_str=data.split(chr(30))
-	img_str=img_str.decode('base64')
-	file = open("cirao.png", "wb")	
-	file.write(img_str)
+	
+	file = open("message_master.txt", "wb")
+	file.write(data)
 	file.close()
+
+	while True:
+		try:
+			file = open("message_slave.txt", "r")
+			img_str=file.read()
+			file.close()
+			break
+		except:
+			pass
+	try:
+		os.remove("message_master.txt")
+	except:
+		pass
+
+
+	img_str=img_str.decode('base64')
 	img=Image.open(io.BytesIO(img_str))
 	showPIL(img)
-	time.sleep(1/FRAMESPERSECOND) # nao sei se é bom
-	break;
-
-# pyautogui.moveTo(x, y)
+	time.sleep(1/FRAMESPERSECOND)
