@@ -47,13 +47,13 @@ Instale a linguagem `python` (versão 2.7) e os pacotes necessários, através d
 	pip install -r requirements.txt
 
 
-Na máquina que será o servidor, rode o script "controlled.pl"
+Na máquina que será controlada, rode o script "controlled.py"
 
 ```
 python controlled.py
 ```
 
-Na máquina que será o cliente, rode o script "controller.pl"
+Na máquina que irá controlar, rode o script "controller.py"
 
 ```
 python controller.py
