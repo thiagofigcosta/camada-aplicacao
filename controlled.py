@@ -11,17 +11,6 @@ FRAMESPERSECOND=30
 
 
 while True:
-	img=pyautogui.screenshot()
-
-	with io.BytesIO() as output:
-		img.save(output, format="PNG")
-		img_str = base64.b64encode(output.getvalue())
-	data=img_str
-
-	file = open("message_slave.txt", "wb")
-	file.write(data)
-	file.close()
-
 	while True:
 		try:
 			file = open("message_master.txt", "r")
@@ -35,8 +24,19 @@ while True:
 	except:
 		pass
 
-	masterx,mastery,mousex,mousey=data.split(chr(30))
+	DST_IP,masterx,mastery,mousex,mousey=data.split(chr(30))
 	screenx,screeny= pyautogui.size()
+
+	img=pyautogui.screenshot()
+
+	with io.BytesIO() as output:
+		img.save(output, format="PNG")
+		img_str = base64.b64encode(output.getvalue())
+	data=DST_TP+chr(30)+img_str
+
+	file = open("message_slave.txt", "wb")
+	file.write(data)
+	file.close()
 
 	newmousex,newmousey=int(float(mousex)/float(masterx)*float(screenx)),int(float(mousey)/float(mastery)*float(screeny))
 
