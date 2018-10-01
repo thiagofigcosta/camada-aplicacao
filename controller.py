@@ -17,6 +17,9 @@ from PIL import Image, ImageTk
 
 
 FRAMESPERSECOND=30
+DESIRED_IP="192.56.6.2"
+DEFAULTAPP_PORT="5545"
+
 
 def getScreenSize(screenx,screeny):
 	return screenx*0.9, screeny*0.9
@@ -55,7 +58,8 @@ while True:
 	screenx,screeny= pyautogui.size()
 	sizex, sizey = getScreenSize(screenx, screeny)
 	mousex,mousey= pyautogui.position()
-	data=str(sizex)+chr(30)+str(sizey)+chr(30)+str(mousex)+chr(30)+str(mousey)
+	#data=str(sizex)+chr(30)+str(sizey)+chr(30)+str(mousex)+chr(30)+str(mousey)
+	data=DESIRED_IP+':'+DEFAULTAPP_PORT+chr(30)+str(sizex)+chr(30)+str(sizey)+chr(30)+str(mousex)+chr(30)+str(mousey)
 
 	
 	file = open("message_master.txt", "wb")

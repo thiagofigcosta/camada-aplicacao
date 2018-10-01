@@ -44,8 +44,3 @@ while True:
 	pyautogui.moveTo(newmousex, newmousey)
 
 	time.sleep(1/FRAMESPERSECOND)
-
-
-
-
-	
