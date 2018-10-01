@@ -43,4 +43,4 @@ while True:
 	print("x:"+str(newmousex)+"  y:"+str(newmousey))
 	pyautogui.moveTo(newmousex, newmousey)
 
-	time.sleep(1/FRAMESPERSECOND)
+	time.sleep(1/FRAMESPERSECOND) # NAO DEVE SER NECESSARIO
