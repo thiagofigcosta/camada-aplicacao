@@ -138,35 +138,40 @@ def controller(myip,ip,port):
 
 
 if __name__ == "__main__":
-	choicing=True
+	choice='?'
 	print (u"-------------------------------------")
 	print (u"-Bem vindo ao Protocolo Mickey Mouse-")
 	print (u"-------------------------------------")
-	while choicing:
+	while True:
 		print (u"\nEscolha uma das opções abaixo:")
 		print (u"C - Controlar um computador remoto")
 		print (u"S - Ter o computador controlado")
 		print (u"E - Sair")
 
 		try:
-			choice = chr(input()).upper()
-			if choice == "C":
-				choicing=False
-				while True:
-					print(u"Digite o ip e porta do computador que deseja controlar (ip:port):")
-					try:
-						ip,port=input().split(':')
-						port=int(port)
-					except:
-						pass
-					controller(myip=findDetectIp().strip(),ip=ip.strip(),port=port)
-
-			elif choice == "S":
-				choicing=False
-				controlled(ip=findDetectIp().strip(),port=DEFAULT_PORT)
-			elif choice == "E":
-				choicing=False
+			choice = "E"
+			choice = choice[0].upper()
+			if choice=="E" or choice=="C" or choice=="S":
+				break
 			else:
 				raise Exception()
 		except:
-			print (u"Escolha inválida...")
+			
+				print (u"Escolha inválida ("+choice+")...")
+
+	if choice == "C":
+		while True:
+			print(u"Digite o ip e porta do computador que deseja controlar (ip:port):")
+			try:
+				userin=input()
+				ip,port=userin.split(':')
+				port=int(port)
+				break
+			except:
+				pass
+		controller(myip=findDetectIp().strip(),ip=ip.strip(),port=port)
+	elif choice == "S":
+		controlled(ip=findDetectIp().strip(),port=DEFAULT_PORT)
+	elif choice == "E":
+		exit()
+	
