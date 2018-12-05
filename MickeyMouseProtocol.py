@@ -149,7 +149,7 @@ if __name__ == "__main__":
 		print (u"E - Sair")
 
 		try:
-			choice = "E"
+			choice = raw_input()
 			choice = choice[0].upper()
 			if choice=="E" or choice=="C" or choice=="S":
 				break
@@ -163,7 +163,7 @@ if __name__ == "__main__":
 		while True:
 			print(u"Digite o ip e porta do computador que deseja controlar (ip:port):")
 			try:
-				userin=input()
+				userin=raw_input()
 				ip,port=userin.split(':')
 				port=int(port)
 				break
