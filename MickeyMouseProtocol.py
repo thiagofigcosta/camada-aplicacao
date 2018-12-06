@@ -174,4 +174,3 @@ if __name__ == "__main__":
 		controlled(ip=findDetectIp().strip(),port=DEFAULT_PORT)
 	elif choice == "E":
 		exit()
-	

@@ -1,22 +1,21 @@
 # Camada de Aplicação 
 
 >- **Camada Fisica:** https://github.com/pedrohenriquecordeiro/camadafisica
->- **Camada Rede:** 
->- **Camada Transporte:** 
+>- **Camada Rede:** https://github.com/thiagofigcosta/camadarede
+>- **Camada Transporte:** https://github.com/Bernard2254/camadatransporte
 >- **Camada Aplicação:** https://github.com/thiagofigcosta/camadaaplicacao
 
 >- **Todas as camadas:** https://github.com/thiagofigcosta/camadas-rede
 
-Implementacao da Camada de Aplicação do Trabalho Prático de Redes 1 - CEFET-MG
+Implementacao da Camada de Transporte  do Trabalho Prático de Redes 1 - CEFET-MG
 
   - Integrantes do grupo:
-    + Marcos Henriques
-    + Pedro Cordeiro
-    + Bernard
-    + Thiago
+    + Bernard Menezes Moreira da Costa bernard.menezes98@gmail.com
+    + Pedro Henrique Cordeiro de Jesus pedro.henrique.cefetmg@gmail.com
+    + Thiago Figueiredo Costa thiagofigcosta@hotmail.com
+    + Marcos Tiago Ferreira Henriques marcostiagofh@gmail.com
 
 O Enunciado está neste __[link.](https://docs.google.com/document/d/1O3cNM0T6gFNz9PeMYcnzbmBzEe8J7k34DaefJDSsv4A/edit)__
-O relatório a ser preenchido está neste __[link.](https://docs.google.com/document/d/1Jkdm1ab7stzki03h5Mim50l1egjnSPyiNFp3CbYJx2A/edit?usp=sharing)__
 
 ___
 
@@ -26,40 +25,17 @@ ___
 
 ## Relação de Linguagens Escolhidas 
 
-| Camada | Linguagem |
-| ------ | ----------- |
-| fisica | perl |
-| aplicação | python |
-| transporte | javascript |
-| rede | php |
+| Camada        | Linguagem   |
+| ------------- | ----------- |
+| aplicação     | python      |
+| transporte    | javascript  |
+| rede          | swift       |
+| fisica        | perl        |
 ___
 
 
 ## Uso do Código
 
-
-### Camada Física
-Instale a linguagem `perl`
-
-Instale os pacotes necessários, através dos comandos:
-
-    cpan
-    install IO::Socket::INET
-    install Time::HiRes
-    install Net::Address::IP::Local
-
-
-Na máquina que será o servidor, rode o script "server.pl"
-
-```
-perl server.pl
-```
-
-Na máquina que será o cliente, rode o script "client.pl"
-
-```
-perl client.pl
-```
 
 ### Camada de aplicação
 Instale a linguagem `python` (versão 2.7) e os pacotes necessários, através dos comandos:
@@ -71,19 +47,7 @@ Instale a linguagem `python` (versão 2.7) e os pacotes necessários, através d
 	sudo apt-get install scrot
 	pip install -r requirements.txt
 
-
-Na máquina que será controlada, rode o script "controlled.py"
-
+Para executar basta rodar o comando:
 ```
-python controlled.py
+    python MickeyMouseProtocol.py
 ```
-
-Na máquina que irá controlar, rode o script "controller.py"
-
-```
-python controller.py
-```
-
-
-
-
