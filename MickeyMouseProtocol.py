@@ -29,14 +29,14 @@ def findDetectIp():
 	return ip
 
 def controlled(ip,port):
-	file=open("internal_ip.pdu", "w")
+	file=open("device_socket.zap", "w")
 	file.write(ip+":"+str(port))
 	file.close()
 	print ("Running on: "+ip+":"+str(port))
 	print ("Waiting connection...")
 	while True:
 		try:
-			file = open("message_mouse.pdu", "r")
+			file = open("message_in.pdu", "r")
 			data=file.read()
 			file.close()
 			print ("Connected!")
@@ -44,7 +44,7 @@ def controlled(ip,port):
 		except:
 			pass
 	try:
-		os.remove("message_mouse.pdu")
+		os.remove("message_in.pdu")
 	except:
 		pass
 
@@ -58,7 +58,7 @@ def controlled(ip,port):
 		img_str = base64.b64encode(output.getvalue())
 	data=img_str
 
-	file = open("message_image.pdu", "wb")
+	file = open("message_out.pdu", "wb")
 	file.write(data)
 	file.close()
 
@@ -102,6 +102,9 @@ def shutdown(signal,frame):
 
 
 def controller(myip,ip,port):
+	file=open("device_socket.zap", "w")
+	file.write(myip+":"+str(port))
+	file.close()
 	signal.signal(signal.SIGINT, shutdown)
 	print ("Connecting to: "+ip+":"+str(port)+"...")
 	while True:
@@ -109,16 +112,16 @@ def controller(myip,ip,port):
 		sizex, sizey = getScreenSize(screenx, screeny)
 		mousex,mousey= pyautogui.position()
 
-		data=myip+chr(30)+ip+':'+str(port)+chr(30)+str(sizex)+chr(30)+str(sizey)+chr(30)+str(mousex)+chr(30)+str(mousey)
+		data=str(sizex)+chr(30)+str(sizey)+chr(30)+str(mousex)+chr(30)+str(mousey)
 		data=str.encode(data)
 		
-		file = open("../message_mouse.pdu", "wb")
+		file = open("message_out.pdu", "wb")
 		file.write(data)
 		file.close()
 
 		while True:
 			try:
-				file = open("message_image.pdu", "r")
+				file = open("message_in.pdu", "r")
 				img_str=file.read()
 				file.close()
 				print ("Connected!")
@@ -126,7 +129,7 @@ def controller(myip,ip,port):
 			except:
 				pass
 		try:
-			os.remove("message_mouse.pdu")
+			os.remove("message_in.pdu")
 		except:
 			pass
 
