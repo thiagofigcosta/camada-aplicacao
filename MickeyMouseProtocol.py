@@ -29,9 +29,9 @@ def findDetectIp():
 	return ip
 
 def controlled(ip,port):
-	file=open("device_socket.zap", "w")
-	file.write(ip+":"+str(port))
-	file.close()
+	# file=open("device_socket.zap", "w")
+	# file.write(ip.strip())
+	# file.close()
 	print ("Running on: "+ip+":"+str(port))
 	print ("Waiting connection...")
 	while True:
@@ -102,9 +102,9 @@ def shutdown(signal,frame):
 
 
 def controller(myip,ip,port):
-	file=open("device_socket.zap", "w")
-	file.write(myip+":"+str(port))
-	file.close()
+	# file=open("device_socket.zap", "w")
+	# file.write(myip.strip())
+	# file.close()
 	signal.signal(signal.SIGINT, shutdown)
 	print ("Connecting to: "+ip+":"+str(port)+"...")
 	while True:
